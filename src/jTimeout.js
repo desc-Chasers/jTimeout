@@ -162,6 +162,7 @@
                     window.clearTimeout(this.mouseTimeout);
                 }
             },
+            // Travis - Added for chasers specific use
             setKeyTimeout: function(timeout)
             {
                 this.keyTimeout = timeout;
@@ -173,11 +174,12 @@
                     window.clearTimeout(this.keyTimeout);
                 }
             },
-            // Travis - Added for chasers specific use
             //stops monitoring for user activity
             stopActivityMonitoring: function()
             {
                 timeout.stopMouseTimeout();
+                // Travis - Added for chasers specific use
+                timeout.stopKeyTimeout();
             },
             //every so often (if enabled) a call will be made to extend a session because the user is actively using the website
             startActivityMonitoring: function()
