@@ -180,8 +180,9 @@
                     timeout.setMouseTimeout(window.setTimeout(function ()
                     {
                         //on mouse move
-                        $('body').on('mousemove.jTimeout', function ()
+                        $('body').on('mousemove.jTimeout keydown.jTimeout', function ()
                         {
+                            console.log('mousemove or keydown event triggered...');
                             if (!timeout.mouseMoved && timeout.resetOnAlert())
                             {
                                 timeout.mouseMoved = true;
