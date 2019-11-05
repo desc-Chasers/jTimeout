@@ -219,7 +219,7 @@
                 // Travis - Added for chasers specific use
                 if(timeout.options.extendOnKeyDown)
                 {
-                    inMS = timeout.options.mouseDebounce * 1000;
+                    let inMSKey = timeout.options.mouseDebounce * 1000;
                     timeout.keyMoved = false;
 
                     //delay the initial keydown watch for x seconds
@@ -237,13 +237,13 @@
                                 timeout.setKeyTimeout(window.setTimeout(function ()
                                 {
                                     timeout.keyMoved = false;
-                                }, inMS));
+                                }, inMSKey));
                                 // using the same function as mousemove to reset the user session
                                 timeout.options.onMouseMove(timeout);
                             }
                         });
 
-                    }, inMS));
+                    }, inMSKey));
                 }
             },
             setCountdown: function(interval){
