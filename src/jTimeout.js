@@ -32,7 +32,7 @@
             mouseTimeout: false,
             // Travis - Added for chasers specific use
             //The settimeout for key movement to be debounced
-            keyTimeout: false,
+            //keyTimeout: false,
             //all options provided
             options: options,
             //get from localstorage
@@ -162,24 +162,24 @@
                     window.clearTimeout(this.mouseTimeout);
                 }
             },
-            // Travis - Added for chasers specific use
-            setKeyTimeout: function(timeout)
-            {
-                this.keyTimeout = timeout;
-            },
-            // Travis - Added for chasers specific use
-            stopKeyTimeout: function(){
-                if( this.keyTimeout)
-                {
-                    window.clearTimeout(this.keyTimeout);
-                }
-            },
+            // // Travis - Added for chasers specific use
+            // setKeyTimeout: function(timeout)
+            // {
+            //     this.keyTimeout = timeout;
+            // },
+            // // Travis - Added for chasers specific use
+            // stopKeyTimeout: function(){
+            //     if( this.keyTimeout)
+            //     {
+            //         window.clearTimeout(this.keyTimeout);
+            //     }
+            // },
             //stops monitoring for user activity
             stopActivityMonitoring: function()
             {
                 timeout.stopMouseTimeout();
                 // Travis - Added for chasers specific use
-                timeout.stopKeyTimeout();
+                //timeout.stopKeyTimeout();
             },
             //every so often (if enabled) a call will be made to extend a session because the user is actively using the website
             startActivityMonitoring: function()
@@ -197,12 +197,12 @@
                     timeout.setMouseTimeout(window.setTimeout(function ()
                     {
                         //on mouse move
-                        $('body').on('mousemove.jTimeout', function ()
+                        $('body').on('mousemove.jTimeout keydown.jTimeout', function ()
                         {
                             if (!timeout.mouseMoved && timeout.resetOnAlert())
                             {
                                 // TODO: Travis - remove log after testing
-                                console.log('mousemove event triggered...');
+                                console.log('mousemove or keydown event triggered...');
                                 timeout.mouseMoved = true;
 
                                 timeout.setMouseTimeout(window.setTimeout(function ()
@@ -217,34 +217,34 @@
                     }, inMS));
                 }
                 // Travis - Added for chasers specific use
-                if(timeout.options.extendOnKeyDown)
-                {
-                    let inMSKey = timeout.options.mouseDebounce * 1000;
-                    timeout.keyMoved = false;
-
-                    //delay the initial keydown watch for x seconds
-                    timeout.setKeyTimeout(window.setTimeout(function ()
-                    {
-                        //on key down
-                        $('body').on('keydown.jTimeout', function ()
-                        {
-                            if (!timeout.keyMoved && timeout.resetOnAlert())
-                            {
-                                // TODO: Travis - remove log after testing
-                                console.log('keydown event triggered...');
-                                timeout.keyMoved = true;
-
-                                timeout.setKeyTimeout(window.setTimeout(function ()
-                                {
-                                    timeout.keyMoved = false;
-                                }, inMSKey));
-                                // using the same function as mousemove to reset the user session
-                                timeout.options.onMouseMove(timeout);
-                            }
-                        });
-
-                    }, inMSKey));
-                }
+                // if(timeout.options.extendOnKeyDown)
+                // {
+                //     inMS = timeout.options.mouseDebounce * 1000;
+                //     timeout.keyMoved = false;
+                //
+                //     //delay the initial keydown watch for x seconds
+                //     timeout.setKeyTimeout(window.setTimeout(function ()
+                //     {
+                //         //on key down
+                //         $('body').on('keydown.jTimeout', function ()
+                //         {
+                //             if (!timeout.keyMoved && timeout.resetOnAlert())
+                //             {
+                //                 // TODO: Travis - remove log after testing
+                //                 console.log('keydown event triggered...');
+                //                 timeout.keyMoved = true;
+                //
+                //                 timeout.setKeyTimeout(window.setTimeout(function ()
+                //                 {
+                //                     timeout.keyMoved = false;
+                //                 }, inMS));
+                //                 // using the same function as mousemove to reset the user session
+                //                 timeout.options.onMouseMove(timeout);
+                //             }
+                //         });
+                //
+                //     }, inMS));
+                // }
             },
             setCountdown: function(interval){
                 this.interval = interval;
@@ -335,7 +335,7 @@
         timeoutAfter: 1440, //pass this from server side to be fully-dynamic. For PHP: ini_get('session.gc_maxlifetime'); - 1440 is generally the default timeout
         heartbeat: 1, //how many seconds in between checking and updating the timer
         extendOnMouseMove: true, //Whether or not to extend the session when the mouse is moved
-        extendOnKeyDown: true,
+        //extendOnKeyDown: true,
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)
         onMouseMove: function(timeout){
             // TODO: Travis - remove log after tesing
