@@ -257,6 +257,7 @@
 
                 // Remove the event handlers
                 $('body').off('mousemove.jTimeout');
+                $('body').off('keydown.jTimeout');
             }
         };
 
