@@ -181,12 +181,14 @@
                     {
                         //on mouse move
                         // Travis - Added 'keydown.jTimeout' for chasers specific use
-                        $('body').on('mousemove.jTimeout keydown.jTimeout', function ()
+                        //$('body').on('mousemove.jTimeout keydown.jTimeout', function ()
+                        $('body').on(timeout.options.jsEvents, function ()
                         {
                             if (!timeout.mouseMoved && timeout.resetOnAlert())
                             {
                                 // TODO: Travis - remove log after testing
                                 console.log('mousemove or keydown event triggered...');
+                                console.log('options:', options);
                                 timeout.mouseMoved = true;
 
                                 timeout.setMouseTimeout(window.setTimeout(function ()
@@ -291,6 +293,8 @@
         heartbeat: 1, //how many seconds in between checking and updating the timer
         extendOnMouseMove: true, //Whether or not to extend the session when the mouse is moved
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)
+        // TODO testing mutiple events
+        jsEvents: 'mousemove',
         onMouseMove: function(timeout){
             // TODO: Travis - remove log after tesing
             console.log("calling extendUrl to extend the user session...");
