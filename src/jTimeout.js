@@ -187,7 +187,7 @@
                             if (!timeout.mouseMoved && timeout.resetOnAlert())
                             {
                                 // TODO: Travis - remove log after testing
-                                console.log('mousemove or keydown event triggered...');
+                                console.log('js event triggered...');
                                 console.log('options:', options);
                                 timeout.mouseMoved = true;
 
@@ -259,9 +259,17 @@
                 delete timeout.countdown;
 
                 // Remove the event handlers
-                $('body').off('mousemove.jTimeout');
-                // Travis - Added for chasers specific use
-                $('body').off('keydown.jTimeout');
+                //$('body').off('mousemove.jTimeout'); // library version
+                // Travis - Added for chasers specific use, list of js events
+                let eventArray = timeout.options.jsEvents.split(" ");
+                let eventString = "";
+                eventString += (eventArray[0] + ".jTimeout");
+                for(let i = 1; i < eventArray.length; i++) {
+                    eventString += (" " + eventArray[i] + ".jTimeout");
+                }
+                // TODO remove after testing
+                console.log(eventString);
+                $('body').off(eventString);
             }
         };
 
