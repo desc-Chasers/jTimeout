@@ -7,6 +7,16 @@
  *
  *
  */
+// TODO: possible naming changes for the DESC version.
+//  Each should be named for multiple events for DESC's version.  For example, mouseTimeout would be eventTimeout
+//  mouseTimeout
+//  setMouseTimeout
+//  mouseTimeout
+//  stopMouseTimeout
+//  extendOnMouseMove
+//  mouseDebounce
+//  mouseMoved
+//  onMouseMove
 (function ($) {
 
     $.jTimeout = function (options) {
@@ -179,12 +189,13 @@
                     //delay the initial mousemove watch for x seconds
                     timeout.setMouseTimeout(window.setTimeout(function ()
                     {
-                        //on mouse move
-                        // Travis - Added 'keydown.jTimeout' for chasers specific use
+                        // (library version) - on mouse move
                         //$('body').on('mousemove.jTimeout keydown.jTimeout', function ()
+
+                        // (DESC Version) - Added optional custom javascript events option
                         $('body').on(timeout.options.jsEvents, function ()
                         {
-                            if (!timeout.mouseMoved && timeout.resetOnAlert())
+                            if (!timeout.onMouseMove && timeout.resetOnAlert())
                             {
                                 // TODO: Travis - remove log after testing
                                 console.log('js event triggered...');
@@ -258,9 +269,10 @@
                 delete timeout.options.onSessionExtended;
                 delete timeout.countdown;
 
-                // Remove the event handlers
-                //$('body').off('mousemove.jTimeout'); // library version
-                // Travis - Added for chasers specific use, list of js events
+                // (library version) - Remove the event handlers (library version)
+                //$('body').off('mousemove.jTimeout');
+
+                // (DESC Version) - remove all optional event handlers
                 let eventArray = timeout.options.jsEvents.split(" ");
                 let eventString = "";
                 eventString += (eventArray[0] + ".jTimeout");
@@ -268,7 +280,7 @@
                     eventString += (" " + eventArray[i] + ".jTimeout");
                 }
                 // TODO remove after testing
-                console.log(eventString);
+                console.log('event string:', eventString);
                 $('body').off(eventString);
             }
         };
@@ -302,9 +314,10 @@
         extendOnMouseMove: true, //Whether or not to extend the session when the mouse is moved
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)
         // TODO testing mutiple events
-        jsEvents: 'mousemove',
+        // (DESC Version) - added to allow multiple javascript events because the library version only has 'mousemove'
+        jsEvents: 'mousemove', // multiple events can be passed in separated by a space, example: "mousemove keydown click"
         onMouseMove: function(timeout){
-            // TODO: Travis - remove log after tesing
+            // TODO: Travis - remove log after testing
             console.log("calling extendUrl to extend the user session...");
             //request the session extend page
             $.get({
