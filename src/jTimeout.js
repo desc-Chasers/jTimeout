@@ -189,16 +189,16 @@
                     timeout.setMouseTimeout(window.setTimeout(function ()
                     {
                         // (library version) - on mouse move
-                        $('body').on('mousemove.jTimeout keydown.jTimeout', function ()
+                        //$('body').on('mousemove.jTimeout', function ()
 
                         // (DESC Version) - Added optional custom javascript events option
-                        //$('body').on(timeout.options.jsEvents, function ()
+                        $('body').on(timeout.options.jsEvents, function ()
                         {
                             if (!timeout.mouseMoved && timeout.resetOnAlert())
                             {
                                 // TODO: Travis - remove log after testing
                                 console.log('js event triggered...');
-                                console.log('options:', options);
+                                //console.log('options:', options);
                                 timeout.mouseMoved = true;
 
                                 timeout.setMouseTimeout(window.setTimeout(function ()
@@ -272,8 +272,7 @@
                 //$('body').off('mousemove.jTimeout');
 
                 // (DESC Version) - remove all optional event handlers
-                $('body').off('mousemove.jTimeout keydown.jTimeout');
-                //$('body').off(timeout.options.jsEvents);
+                $('body').off(timeout.options.jsEvents);
             }
         };
 
@@ -305,9 +304,8 @@
         heartbeat: 1, //how many seconds in between checking and updating the timer
         extendOnMouseMove: true, //Whether or not to extend the session when the mouse is moved
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)
-        // TODO testing mutiple events
         // (DESC Version) - added to allow multiple javascript events because the library version only has 'mousemove'
-        //jsEvents: 'mousemove.jTimeout', // multiple events can be passed in separated by a space, example: "mousemove keydown click"
+        jsEvents: 'mousemove.jTimeout', // multiple events can be passed in separated by a space, example: "mousemove keydown click"
         onMouseMove: function(timeout){
             // TODO: Travis - remove log after testing
             console.log("calling extendUrl to extend the user session...");
