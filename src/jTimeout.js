@@ -306,7 +306,7 @@
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)
         // TODO testing mutiple events
         // (DESC Version) - added to allow multiple javascript events because the library version only has 'mousemove'
-        jsEvents: 'mousemove.jTimeout', // multiple events can be passed in separated by a space, example: "mousemove keydown click"
+        jsEvents: 'mousemove', // multiple events can be passed in separated by a space, example: "mousemove keydown click"
         onMouseMove: function(timeout){
             // TODO: Travis - remove log after testing
             console.log("calling extendUrl to extend the user session...");
